@@ -33,7 +33,7 @@ func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.Sta
 			},
 			BuildEnvironment: &awscodebuild.BuildEnvironment{
 				BuildImage:  awscodebuild.LinuxBuildImage_AMAZON_LINUX_2_ARM_2(),
-				ComputeType: awscodebuild.ComputeType("ARM Small"),
+				ComputeType: awscodebuild.ComputeType_MEDIUM,
 			},
 		},
 		Synth: pipelines.NewShellStep(jsii.String("Synth"), &pipelines.ShellStepProps{
