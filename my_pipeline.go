@@ -10,10 +10,8 @@ import (
 func main() {
 	app := awscdk.NewApp(nil)
 
-	NewMyPipelineStack(app, "MyPipelineStack", &MyPipelineStackProps{
-		awscdk.StackProps{
-			Env: env(),
-		},
+	NewMyPipelineStack(app, "MyPipelineStack", &awscdk.StackProps{
+		Env: env(),
 	})
 
 	app.Synth(nil)

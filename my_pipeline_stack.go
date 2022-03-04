@@ -7,16 +7,8 @@ import (
 	"github.com/aws/jsii-runtime-go"
 )
 
-type MyPipelineStackProps struct {
-	awscdk.StackProps
-}
-
-func NewMyPipelineStack(scope constructs.Construct, id string, props *MyPipelineStackProps) awscdk.Stack {
-	var sprops awscdk.StackProps
-	if props != nil {
-		sprops = props.StackProps
-	}
-	stack := awscdk.NewStack(scope, &id, &sprops)
+func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.StackProps) awscdk.Stack {
+	stack := awscdk.NewStack(scope, &id, props)
 
 	// The code that defines your stack goes here
 	pipelines.NewCodePipeline(stack, jsii.String("Pipeline"), &pipelines.CodePipelineProps{
