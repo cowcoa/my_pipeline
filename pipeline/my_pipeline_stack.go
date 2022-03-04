@@ -32,7 +32,7 @@ func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.Sta
 				connStatement,
 			},
 			BuildEnvironment: &awscodebuild.BuildEnvironment{
-				BuildImage:  awscodebuild.LinuxBuildImage_AMAZON_LINUX_2_ARM_2(),
+				BuildImage:  awscodebuild.LinuxBuildImage_STANDARD_5_0(),
 				ComputeType: awscodebuild.ComputeType_MEDIUM,
 			},
 		},
