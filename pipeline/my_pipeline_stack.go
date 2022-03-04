@@ -2,6 +2,7 @@ package pipeline
 
 import (
 	"github.com/aws/aws-cdk-go/awscdk/v2"
+	"github.com/aws/aws-cdk-go/awscdk/v2/awscodebuild"
 	"github.com/aws/aws-cdk-go/awscdk/v2/awsiam"
 	"github.com/aws/aws-cdk-go/awscdk/v2/pipelines"
 	"github.com/aws/constructs-go/constructs/v10"
@@ -30,9 +31,14 @@ func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.Sta
 			RolePolicy: &[]awsiam.PolicyStatement{
 				connStatement,
 			},
+			BuildEnvironment: &awscodebuild.BuildEnvironment{
+				BuildImage:  awscodebuild.LinuxBuildImage_AMAZON_LINUX_2_ARM_2(),
+				ComputeType: awscodebuild.ComputeType("ARM Small"),
+			},
 		},
 		Synth: pipelines.NewShellStep(jsii.String("Synth"), &pipelines.ShellStepProps{
 			Commands: &[]*string{
+				jsii.String("go mod tidy"),
 				jsii.String("./cdk-cli-wrapper-dev.sh synth"),
 			},
 			//Input: pipelines.CodePipelineSource_GitHub(jsii.String("cowcoa/my_pipeline"), jsii.String("main"), &pipelines.GitHubSourceOptions{}),
