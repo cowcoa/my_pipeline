@@ -3,6 +3,8 @@ package main
 import (
 	"os"
 
+	"my_pipeline/pipeline"
+
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 	"github.com/aws/jsii-runtime-go"
 )
@@ -10,7 +12,7 @@ import (
 func main() {
 	app := awscdk.NewApp(nil)
 
-	NewMyPipelineStack(app, "MyPipelineStack", &awscdk.StackProps{
+	pipeline.NewMyPipelineStack(app, "MyPipelineStack", &awscdk.StackProps{
 		Env: env(),
 	})
 
