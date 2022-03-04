@@ -10,6 +10,12 @@ CDK_REGION="$(aws configure get region)"
 echo "CDK_ACC: $CDK_ACC"
 echo "CDK_REGION: $CDK_REGION"
 
+if [ -z $CDK_REGION ]
+then
+    CDK_REGION=$AWS_DEFAULT_REGION
+fi
+echo "CDK_REGION again: $CDK_REGION"
+
 export CDK_NEW_BOOTSTRAP=1 
 npx cdk bootstrap aws://${CDK_ACC}/${CDK_REGION} --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
 
