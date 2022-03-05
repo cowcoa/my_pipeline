@@ -7,6 +7,8 @@ import (
 	"github.com/aws/aws-cdk-go/awscdk/v2/pipelines"
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
+
+	"my_pipeline/lib"
 )
 
 func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.StackProps) awscdk.Stack {
@@ -25,7 +27,7 @@ func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.Sta
 	})
 
 	// The code that defines your stack goes here
-	pipelines.NewCodePipeline(stack, jsii.String("Pipeline"), &pipelines.CodePipelineProps{
+	myPipeline := pipelines.NewCodePipeline(stack, jsii.String("Pipeline"), &pipelines.CodePipelineProps{
 		PipelineName: jsii.String("MyPipeline"),
 		CodeBuildDefaults: &pipelines.CodeBuildOptions{
 			RolePolicy: &[]awsiam.PolicyStatement{
@@ -55,6 +57,12 @@ func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.Sta
 			}),
 		}),
 	})
+
+	testingStage := myPipeline.AddStage(lib.NewMyPipelineAppStage(stack, jsii.String("test"), &awscdk.StageProps{
+		Env: props.Env,
+	}), &pipelines.AddStageOpts{})
+
+	testingStage.AddPost(pipelines.NewManualApprovalStep(jsii.String("approval"), &pipelines.ManualApprovalStepProps{}))
 
 	return stack
 }
