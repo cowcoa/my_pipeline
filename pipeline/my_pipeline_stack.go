@@ -38,11 +38,14 @@ func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.Sta
 		},
 		Synth: pipelines.NewShellStep(jsii.String("Synth"), &pipelines.ShellStepProps{
 			Commands: &[]*string{
+				jsii.String("source ./setup_build_env.sh"),
 				jsii.String("echo $PATH"),
 				jsii.String("echo $GOROOT"),
 				jsii.String("echo $GOPATH"),
-				jsii.String("go mod tidy"),
-				jsii.String("./cdk-cli-wrapper-dev.sh synth"),
+				jsii.String("go version"),
+				jsii.String("cdk version"),
+				//jsii.String("go mod tidy"),
+				//jsii.String("./cdk-cli-wrapper-dev.sh synth"),
 			},
 			//Input: pipelines.CodePipelineSource_GitHub(jsii.String("cowcoa/my_pipeline"), jsii.String("main"), &pipelines.GitHubSourceOptions{}),
 			Input: pipelines.CodePipelineSource_Connection(jsii.String("cowcoa/my_pipeline"), jsii.String("main"), &pipelines.ConnectionSourceOptions{
