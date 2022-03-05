@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export GOROOT="/usr/local/go"
-export PATH=$PATH:$GOROOT/bin
+export PATH=$GOROOT/bin:$PATH
 
 pushd /tmp/
 yum -y install tar gzip
