@@ -38,6 +38,9 @@ func NewMyPipelineStack(scope constructs.Construct, id string, props *awscdk.Sta
 		},
 		Synth: pipelines.NewShellStep(jsii.String("Synth"), &pipelines.ShellStepProps{
 			Commands: &[]*string{
+				jsii.String("echo $PATH"),
+				jsii.String("echo $GOROOT"),
+				jsii.String("echo $GOPATH"),
 				jsii.String("go mod tidy"),
 				jsii.String("./cdk-cli-wrapper-dev.sh synth"),
 			},
