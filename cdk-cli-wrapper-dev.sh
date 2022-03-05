@@ -15,9 +15,12 @@ fi
 echo "CDK_ACC: $CDK_ACC"
 echo "CDK_REGION: $CDK_REGION"
 
-echo "Run bootstrap"
-export CDK_NEW_BOOTSTRAP=1 
-npx cdk bootstrap aws://${CDK_ACC}/${CDK_REGION} --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+if [ -z $AWS_DEFAULT_REGION ]
+then
+    echo "Run bootstrap"
+    export CDK_NEW_BOOTSTRAP=1 
+    npx cdk bootstrap aws://${CDK_ACC}/${CDK_REGION} --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+fi
 
 # Deploy pre-process.
 echo "Run cdk-cli-wrapper.sh"
